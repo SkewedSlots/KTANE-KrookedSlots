@@ -1,7 +1,7 @@
 {
-  "name": "modulename-Editor",
+  "name": "krookedslotsmodule-Editor",
   "references": [
-    "modulename"
+    "krookedslotsmodule"
   ],
   "includePlatforms": [
     "Editor"

@@ -11,15 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 615501dbe4f3fe94fbf4b564abb10237, type: 3}
   m_Name: ModConfig
   m_EditorClassIdentifier: 
-  id: modulename
-  title: Module Name
-  author: your name
-  description: '(Description)
-
-
-    The manual can be found in the manuals folder of the game or at ktane.timwi.de.
-
-'
+  id: krookedslotsmodule
+  title: Krooked Slots
+  author: Nightmare
+  description: if yall see this i forgot to edit it
   version: 1.0.0
   outputFolder: build
   previewImage: {fileID: 0}
