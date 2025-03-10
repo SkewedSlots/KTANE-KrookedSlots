@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: config
   m_EditorClassIdentifier: 
   SerialNumberType: 2
-  CustomSerialNumber: 000AA0
+  CustomSerialNumber: ABCDE1
   TwoFactorResetTime: 30
   Widgets: []
