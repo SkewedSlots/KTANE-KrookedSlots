@@ -89,15 +89,8 @@ public class KrookedSlots : MonoBehaviour
 
         ConvertSN36andSlotALettersIG();
         SlotAScramble();
-        if (SolveOnSubmit)
-        {
-            Debug.LogFormat("[Krooked Slots #{0}] Seems like you lucked out... Though I'm CONFIDENT that no slot machine could generate a wheel from that abomination of a Serial Number.", ModuleId);
-        }
-        else
-        {
-            Debug.LogFormat("[Krooked Slots #{0}] The 1st slot's digits before reordering are: {1}{2}{3}{4}{5}{6}", ModuleId, SlotAUnorderedDigits[0], SlotAUnorderedDigits[1], SlotAUnorderedDigits[2], SlotAUnorderedDigits[3], SlotAUnorderedDigits[4], SlotAUnorderedDigits[5]);
-            Debug.LogFormat("[Krooked Slots #{0}] The 1st slot's letters (First and Second numbers) are: {1}{2}{3}{4}{5}{6}", ModuleId, SlotAUnorderedLetters[0], SlotAUnorderedLetters[1], SlotAUnorderedLetters[2], SlotAUnorderedLetters[3], SlotAUnorderedLetters[4], SlotAUnorderedLetters[5]);
-        }
+        Debug.LogFormat("[Krooked Slots #{0}] The 1st slot's digits before reordering are: {1}{2}{3}{4}{5}{6}", ModuleId, SlotAUnorderedDigits[0], SlotAUnorderedDigits[1], SlotAUnorderedDigits[2], SlotAUnorderedDigits[3], SlotAUnorderedDigits[4], SlotAUnorderedDigits[5]);
+        Debug.LogFormat("[Krooked Slots #{0}] The 1st slot's letters (First and Second numbers) are: {1}{2}{3}{4}{5}{6}", ModuleId, SlotAUnorderedLetters[0], SlotAUnorderedLetters[1], SlotAUnorderedLetters[2], SlotAUnorderedLetters[3], SlotAUnorderedLetters[4], SlotAUnorderedLetters[5]);
         SlotBScramble();
         Debug.LogFormat("[Krooked Slots #{0}] The 2nd slot's digits before reordering are: {1}{2}{3}{4}{5}{6}", ModuleId, SlotBUnorderedDigits[0], SlotBUnorderedDigits[1], SlotBUnorderedDigits[2], SlotBUnorderedDigits[3], SlotBUnorderedDigits[4], SlotBUnorderedDigits[5]);
         Debug.LogFormat("[Krooked Slots #{0}] The 2nd slot's letters (First and Second numbers) are: {1}{2}{3}{4}{5}{6}", ModuleId, SlotBUnorderedLetters[0], SlotBUnorderedLetters[1], SlotBUnorderedLetters[2], SlotBUnorderedLetters[3], SlotBUnorderedLetters[4], SlotBUnorderedLetters[5]);
@@ -108,23 +101,24 @@ public class KrookedSlots : MonoBehaviour
         Debug.LogFormat("[Krooked Slots #{0}] The digits displayed at the beginning of the module are: {1}{2}{3}", ModuleId, OriginalDigits[0], OriginalDigits[1], OriginalDigits[2]);
         // Add ordered list into model here!!!
         ObtainSortedSlots();
+        Debug.LogFormat("[Krooked Slots #{0}] In the slots, the First digits are: {1}{2}{3} ; {4}{5}{6} ; {7}{8}{9} respectively.", ModuleId, SlotA_F[0], SlotA_F[1], SlotA_F[2], SlotB_F[0], SlotB_F[1], SlotB_F[2], SlotC_F[0], SlotC_F[1], SlotC_F[2]);
+        Debug.LogFormat("[Krooked Slots #{0}] In the slots, the Second digits are: {1}{2}{3} ; {4}{5}{6} ; {7}{8}{9} respectively.", ModuleId, SlotA_S[0], SlotA_S[1], SlotA_S[2], SlotB_S[0], SlotB_S[1], SlotB_S[2], SlotC_S[0], SlotC_S[1], SlotC_S[2]);
         ObtainLotteryNumbers();
-        Debug.LogFormat("[Krooked Slots #{0}] The goal digits are: {1}{2}{3}", ModuleId, SolutionDigits[0], SolutionDigits[1], SolutionDigits[2]);
+        if (SolveOnSubmit)
+        {
+            Debug.LogFormat("[Krooked Slots #{0}] ERROR G4M813R REACHED - Press submit to solve the module!", ModuleId);
+            Debug.LogFormat("[Krooked Slots #{0}] This happened because there's at least one wheel which has no digits that appear only once, thus making it rather difficult to assign a desired position. While the manual could be tweaked to adjyst for this edgecase, I believe that it's in the spirit of a slot machine module to have a miniscule chance to solve automatically.", ModuleId);
+        }
+        else
+        {
+            Debug.LogFormat("[Krooked Slots #{0}] The goal digits are: {1}{2}{3}", ModuleId, SolutionDigits[0], SolutionDigits[1], SolutionDigits[2]);
+        }
+        
 
         // Call ResetPoint on strike..?
         ResetPoint();
 
         Debug.Log(SolveOnSubmit);
-        /*
-        foreach (int n in OriginalDigits)
-        {
-            Debug.Log(n);
-        }
-        foreach (int n in SolutionDigits)
-        {
-            Debug.Log(n);
-        }
-        */
     }
 
     void ResetPoint ()
@@ -179,7 +173,52 @@ public class KrookedSlots : MonoBehaviour
         SolutionDigits.Add(((((OriginalDigits[1] + 3) * (SlotB_F[1]*10+ SlotB_S[2] - (SlotB_S[1] * 10 + SlotB_F[0]) + SlotB_F[2] * 10 + SlotB_S[0]) - dupTypeCount)  % 10)+10)%10);
         SolutionDigits.Add((((-2 * OriginalDigits[2] + SlotC_S[1] - Mathf.Abs(SlotC_S[2] - SlotC_S[0]) + (SlotC_F[2] - Mathf.Abs(SlotC_F[0] - SlotC_F[1])))% 10)+10)%10);
 
-
+        // BOTTOM ROUNDN TO NEAREST POSSIBLE NON TIED
+        for (int i = 0; i < 15; i++)
+        {
+            if (SlotAUnorderedDigits.Count(x => x == SolutionDigits[0]) == 1)
+            {
+                break;
+            }
+            else
+            {
+                SolutionDigits[0]=(SolutionDigits[0]+9)%10;
+            }
+            if (i == 13)
+            {
+                SolveOnSubmit = true;
+            }
+        }
+        for (int i = 0; i < 15; i++)
+        {
+            if (SlotBUnorderedDigits.Count(x => x == SolutionDigits[1]) == 1)
+            {
+                break;
+            }
+            else
+            {
+                SolutionDigits[1] = (SolutionDigits[1] + 9) % 10;
+            }
+            if (i == 13)
+            {
+                SolveOnSubmit = true;
+            }
+        }
+        for (int i = 0; i < 15; i++)
+        {
+            if (SlotCUnorderedDigits.Count(x => x == SolutionDigits[2]) == 1)
+            {
+                break;
+            }
+            else
+            {
+                SolutionDigits[2] = (SolutionDigits[2] + 9) % 10;
+            }
+            if (i == 13)
+            {
+                SolveOnSubmit = true;
+            }
+        }
     }
 
     void ObtainSortedSlots()
@@ -327,22 +366,30 @@ public class KrookedSlots : MonoBehaviour
     {
         // change 1S to F or 2F to S
 
-        if ((SlotAUnorderedLetters.Count(x => x == "F") > 4) || (SlotAUnorderedLetters.Count(x => x == "S") > 4))
+        if (SlotAUnorderedLetters.Count(x => x == "S") > 3)
         {
-            SolveOnSubmit = true;
-            for (int i = 0; i < 3; i++)
+            int y = 0;
+            while (SlotAUnorderedLetters.Count(x => x == "S") > 3)
             {
-                SlotA_S.Add(6);
-                SlotA_F.Add(9);
+                SlotAUnorderedLetters[y] = "F";
+                y++;
             }
-        }
-        else if (SlotAUnorderedLetters.Count(x => x == "S") > 3)
-        {
-            SlotAUnorderedLetters[0] = "F";
         }
         else if (SlotAUnorderedLetters.Count(x => x == "F") > 3)
         {
-            SlotAUnorderedLetters[1] = "S";
+            int z = 0, fcount= 0;
+            while (SlotAUnorderedLetters.Count(x => x == "F") > 3)
+            {
+                if (SlotAUnorderedLetters[z] == "F")
+                {
+                    fcount++;
+                    if (fcount > 1)
+                    {
+                        SlotAUnorderedLetters[z] = "S";
+                    }
+                }
+                z++;
+            }
         }
     }
 
