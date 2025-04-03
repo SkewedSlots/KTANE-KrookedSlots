@@ -14,15 +14,24 @@ public class KrookedSlots : MonoBehaviour
     public KMBombInfo Bomb;
     public KMAudio Audio;
 
+    public KMSelectable[] KillMyself;
+
+    public TextMesh[] WheelADigits;
+    public TextMesh[] WheelBDigits;
+    public TextMesh[] WheelCDigits;
+
     string Serial, Ports;
-    int Batt, Hold, Lits, Unlits, DVI, RJ, PS, RCA, PAR, SER;
+    int Batt, Hold, Lits, Unlits, DVI, RJ, PS, RCA, PAR, SER, ModuleCount;
 
     // Used as a failsafe when module cant generate, caused by SILLY edgework
     bool SolveOnSubmit = false;
 
     List<int> ConvertedSN36 = new List<int>();
+    List<string> Modules = new List<string>();
 
     const string TableEquivalents = "9106574823QLAMHFUVNWIOXEGPYTRKDSBCZJ";
+    readonly int[] HighlyComposite = { 1, 2, 4, 6, 12, 24, 36, 48, 60, 120, 180, 240, 360, 720, 840, 1260, 1680, 2520, 5040};
+    readonly int[] Fib = { 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765};
 
     List<int> SlotAUnorderedDigits = new List<int>();
     List<string> SlotAUnorderedLetters = new List<string>();
@@ -53,11 +62,11 @@ public class KrookedSlots : MonoBehaviour
     { //Avoid doing calculations in here regarding edgework. Just use this for setting up buttons for simplicity.
         ModuleId = ModuleIdCounter++;
         GetComponent<KMBombModule>().OnActivate += Activate;
-        /*
-        foreach (KMSelectable object in keypad) {
-            object.OnInteract += delegate () { keypadPress(object); return false; };
+
+        foreach (KMSelectable Button in KillMyself) {
+            Button.OnInteract += delegate () { ButtonPress(Button); return false; };
         }
-        */
+
 
         //button.OnInteract += delegate () { buttonPress(); return false; };
 
@@ -86,6 +95,8 @@ public class KrookedSlots : MonoBehaviour
         DVI = Bomb.GetPortCount(Port.DVI);
         SER = Bomb.GetPortCount(Port.Serial);
         PAR = Bomb.GetPortCount(Port.Parallel);
+        Modules = Bomb.GetModuleNames();
+        ModuleCount = Modules.Count;
 
         ConvertSN36andSlotALettersIG();
         SlotAScramble();
@@ -103,6 +114,7 @@ public class KrookedSlots : MonoBehaviour
         ObtainSortedSlots();
         Debug.LogFormat("[Krooked Slots #{0}] In the slots, the First digits are: {1}{2}{3} ; {4}{5}{6} ; {7}{8}{9} respectively.", ModuleId, SlotA_F[0], SlotA_F[1], SlotA_F[2], SlotB_F[0], SlotB_F[1], SlotB_F[2], SlotC_F[0], SlotC_F[1], SlotC_F[2]);
         Debug.LogFormat("[Krooked Slots #{0}] In the slots, the Second digits are: {1}{2}{3} ; {4}{5}{6} ; {7}{8}{9} respectively.", ModuleId, SlotA_S[0], SlotA_S[1], SlotA_S[2], SlotB_S[0], SlotB_S[1], SlotB_S[2], SlotC_S[0], SlotC_S[1], SlotC_S[2]);
+        PutDigitsOnModel();
         ObtainLotteryNumbers();
         if (SolveOnSubmit)
         {
@@ -113,12 +125,11 @@ public class KrookedSlots : MonoBehaviour
         {
             Debug.LogFormat("[Krooked Slots #{0}] The goal digits are: {1}{2}{3}", ModuleId, SolutionDigits[0], SolutionDigits[1], SolutionDigits[2]);
         }
-        
+        // GetMagicNumber();
+        Debug.Log(GetMagicNumber());
 
         // Call ResetPoint on strike..?
         ResetPoint();
-
-        Debug.Log(SolveOnSubmit);
     }
 
     void ResetPoint ()
@@ -129,6 +140,55 @@ public class KrookedSlots : MonoBehaviour
     void Update()
     { //Shit that happens at any point after initialization
 
+    }
+
+    void ButtonPress(KMSelectable Button)
+    {
+        Debug.LogFormat("[Krooked Slots #{0}] qdwqdqwd", ModuleId);
+    }
+
+    int GetMagicNumber()
+    {
+        int MagicNum = ModuleCount * 2;
+        if (OriginalDigits[2] % 2 == 1)
+        {
+            MagicNum++;
+        }
+        if (MagicNum < 9)
+        {
+            MagicNum = MagicNum % 4;
+        }
+        else if (Math.IsPrime(MagicNum) && (MagicNum % 10 == 1 || MagicNum % 10 == 9))
+        {
+            MagicNum -= 4;
+        }
+        else if (MagicNum % 2 == 0 && HighlyComposite.Contains(MagicNum))
+        {
+            MagicNum = MagicNum / 2;
+        }
+        else if (Fib.Contains(MagicNum))
+        {
+            MagicNum += 9;
+        }
+        if (Serial.Contains("A")|| Serial.Contains("E")|| Serial.Contains("I")|| Serial.Contains("O")|| Serial.Contains("U"))
+        {
+            MagicNum += 87;
+        }
+        if (MagicNum == 0)
+        {
+            MagicNum = Lits + Unlits;
+        }
+        return (MagicNum + 10000) % 10;
+    }
+
+    void PutDigitsOnModel()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            WheelADigits[i].text = SlotAOnModel[i].ToString();
+            WheelCDigits[i].text = SlotCOnModel[i].ToString();
+            WheelBDigits[i].text = SlotBOnModel[i].ToString();
+        }
     }
 
     void ObtainLotteryNumbers()
@@ -312,6 +372,8 @@ public class KrookedSlots : MonoBehaviour
         }
     }
 
+    #region SlotScrambles
+
     void SlotCScramble()
     {
         // Use alphanumeric  for values all even pos (F), othws table (S). If batt = hold + 1, ivert letter string
@@ -412,6 +474,8 @@ public class KrookedSlots : MonoBehaviour
             }
         }
     }
+
+    #endregion
 
     void ConvertSN36andSlotALettersIG()
     {

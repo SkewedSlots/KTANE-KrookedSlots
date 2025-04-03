@@ -1,0 +1,191 @@
+fileFormatVersion: 2
+guid: ef565109446e3ae478c7223029cdc107
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Buttons
+    100002: //RootNode
+    100004: Module Backplate
+    100006: Submit Button Base
+    100008: Submit Button Clear
+    100010: Submit Button Text
+    100012: Wheel 1 spin down
+    100014: Wheel 1 spin down.001
+    100016: Wheel 1 spin up
+    100018: Wheel 1 spin up.002
+    100020: Wheel 2 spin down
+    100022: Wheel 2 spin down.001
+    100024: Wheel 2 spin up.001
+    100026: Wheel 2 spin up.002
+    100028: Wheel 3 spin down
+    100030: Wheel 3 spin down.002
+    100032: Wheel 3 spin up
+    100034: Wheel 3 spin up.002
+    100036: Wheel Case
+    100038: Wheel1
+    100040: Wheel2
+    100042: Wheel3
+    400000: Buttons
+    400002: //RootNode
+    400004: Module Backplate
+    400006: Submit Button Base
+    400008: Submit Button Clear
+    400010: Submit Button Text
+    400012: Wheel 1 spin down
+    400014: Wheel 1 spin down.001
+    400016: Wheel 1 spin up
+    400018: Wheel 1 spin up.002
+    400020: Wheel 2 spin down
+    400022: Wheel 2 spin down.001
+    400024: Wheel 2 spin up.001
+    400026: Wheel 2 spin up.002
+    400028: Wheel 3 spin down
+    400030: Wheel 3 spin down.002
+    400032: Wheel 3 spin up
+    400034: Wheel 3 spin up.002
+    400036: Wheel Case
+    400038: Wheel1
+    400040: Wheel2
+    400042: Wheel3
+    2100000: No Name
+    2100002: Component_PuzzleBack_mat
+    2300000: Module Backplate
+    2300002: Submit Button Base
+    2300004: Submit Button Clear
+    2300006: Submit Button Text
+    2300008: Wheel 1 spin down
+    2300010: Wheel 1 spin down.001
+    2300012: Wheel 1 spin up
+    2300014: Wheel 1 spin up.002
+    2300016: Wheel 2 spin down
+    2300018: Wheel 2 spin down.001
+    2300020: Wheel 2 spin up.001
+    2300022: Wheel 2 spin up.002
+    2300024: Wheel 3 spin down
+    2300026: Wheel 3 spin down.002
+    2300028: Wheel 3 spin up
+    2300030: Wheel 3 spin up.002
+    2300032: Wheel Case
+    2300034: Wheel1
+    2300036: Wheel2
+    2300038: Wheel3
+    3300000: Module Backplate
+    3300002: Submit Button Base
+    3300004: Submit Button Clear
+    3300006: Submit Button Text
+    3300008: Wheel 1 spin down
+    3300010: Wheel 1 spin down.001
+    3300012: Wheel 1 spin up
+    3300014: Wheel 1 spin up.002
+    3300016: Wheel 2 spin down
+    3300018: Wheel 2 spin down.001
+    3300020: Wheel 2 spin up.001
+    3300022: Wheel 2 spin up.002
+    3300024: Wheel 3 spin down
+    3300026: Wheel 3 spin down.002
+    3300028: Wheel 3 spin up
+    3300030: Wheel 3 spin up.002
+    3300032: Wheel Case
+    3300034: Wheel1
+    3300036: Wheel2
+    3300038: Wheel3
+    4300000: Wheel 1 spin down
+    4300002: Wheel 1 spin down.001
+    4300004: Wheel 1 spin up.002
+    4300006: Wheel 1 spin up
+    4300008: Wheel 2 spin down
+    4300010: Wheel 2 spin down.001
+    4300012: Wheel 2 spin up.002
+    4300014: Wheel 2 spin up.001
+    4300016: Wheel 3 spin down
+    4300018: Wheel 3 spin down.002
+    4300020: Wheel 3 spin up.002
+    4300022: Wheel 3 spin up
+    4300024: Module Backplate
+    4300026: Submit Button Base
+    4300028: Submit Button Clear
+    4300030: Submit Button Text
+    4300032: Wheel Case
+    4300034: Wheel1
+    4300036: Wheel2
+    4300038: Wheel3
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
